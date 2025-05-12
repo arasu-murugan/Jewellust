@@ -22,7 +22,7 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(cookieParser())
-app.use(morgan())
+app.use(morgan('combined'));
 app.use(helmet({
     crossOriginResourcePolicy : false
 }))
@@ -45,7 +45,9 @@ app.use("/api/address", addressRouter)
 app.use('/api/order', orderRouter)
 
 connectDB().then(()=>{
-    app.listen(PORT,()=>{
-        console.log("Server is running",PORT)
-    })
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
 })
